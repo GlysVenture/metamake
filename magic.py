@@ -28,7 +28,8 @@ $(BUILD_DIR)/%.c.o $: %.c\n\
     @mkdir -p $(dir $@)\n\
     @$(CC) -c $(CFLAGS) $< -o $@\n\
 \n\
-\n"
+$(NAME):    $(OBJS)\n\
+"
     contents = contents.replace("[name]", name)
     print(contents)
     sys.exit()

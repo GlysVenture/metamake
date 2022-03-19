@@ -1,0 +1,42 @@
+CFLAGS ?= -Wall -Wextra -Werror
+
+ifeq ($(strip $(shell find ./* -maxdepth 0 -type d | wc -l)), 0)
+	DIRS := 
+else
+	DIRS := $(shell echo */)
+endif
+
+LIBS = $(patsubst %/,lib%.a,$(DIRS))
+PATHS = $(join $(DIRS),$(LIBS))
+INCS = $(addsuffix includes,$(addprefix -I,$(DIRS)))
+
+libs:
+	@for dir in $(DIRS:%/=%) ; do \
+		echo Making $$dir lib; \
+		$(MAKE) -e CFLAGS="$(CFLAGS)" -C $$dir; \
+	done
+
+lib_l:
+	@echo -n $(addprefix -L,$(DIRS)) $(addprefix -l,$(DIRS:%/=%))
+
+lib_path:
+	@echo -n $(PATHS)
+
+lib_inc:
+	@echo -n $(INCS)
+
+all:	libs
+
+clean:
+	@for dir in $(DIRS:%/=%) ; do \
+		echo Cleaning $$dir lib; \
+		$(MAKE) -C $$dir clean; \
+	done
+
+fclean:
+	@for dir in $(DIRS:%/=%) ; do \
+		echo Cleaning $$dir lib; \
+		$(MAKE) -C $$dir fclean; \
+	done
+
+.PHONY: libs lib_l lib_inc lib_path all clean fclean
