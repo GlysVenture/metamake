@@ -19,7 +19,7 @@ all:	$(TEST_BINS)
 	@for test in $(TEST_BINS); do \
 		export "DYLD_LIBRARY_PATH=$(shell pwd)/$(CRITERION_DIR)" ; \
 		printf "[`tput setaf 1`test`tput sgr0`] running $$test\n" ; \
-		./$$test; \
+		./$$test || true; \
 	done
 	@$(MAKE) clean
 
