@@ -23,20 +23,26 @@ def create_file(substr, file, path):
     makefile.close()
 
 def main():
+
+    if len(sys.argv) != 2:
+        print("invalid arguments, please input binary name")
+
+    bin_name = sys.argv[1]
+
     directory = os.getcwd()
 
-    create_make("bin_name", "parentmake", ".")
+    create_make(bin_name, "parentmake", ".")
 
     os.mkdir(os.path.join(directory, "tests"))
     os.mkdir(os.path.join(directory, "src"))
     os.mkdir(os.path.join(directory, "bin"))
     os.mkdir(os.path.join(directory, "libs"))
 
-    create_make("bin_name", "libmake", "./libs")
-    create_make("bin_name", "testmake", "./tests")
+    create_make(bin_name, "libmake", "./libs")
+    create_make(bin_name, "testmake", "./tests")
     shutil.copytree(os.path.join(os.path.dirname(__file__), "criterion-v2.3.2"), "./tests/criterion-v2.3.2")
-    create_file("bin_name", "main.c", "./src")
-    create_file("bin_name", "tests.c", "./tests")
+    create_file(bin_name, "main.c", "./src")
+    create_file(bin_name, "tests.c", "./tests")
 
 if __name__ == "__main__":
     main()

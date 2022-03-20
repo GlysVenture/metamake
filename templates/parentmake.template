@@ -11,7 +11,7 @@ SRC_DIR ?= ./src
 TESTS_DIR ?= ./tests
 LIBS_DIR ?= ./libs
 BIN_DIR ?= ./bin
-INC_DIR := ./includes
+INC_DIR := ./include
 BUILD_DIR ?= ./build
 
 SRCS = $(shell find $(SRC_DIR) -name *.c)
@@ -31,7 +31,7 @@ $(BUILD_DIR)/%.c.o : %.c
 $(NAME):	library
 $(NAME):    $(OBJS) $(LIB_FILES)
 	@echo Linking $@
-	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(BUILD_DIR)/$(NAME)
 
 release: CFLAGS += -03 -march=native
 release: fclean
@@ -56,7 +56,7 @@ clean:
 
 fclean:
 	@rm -rf $(BUILD_DIR)
-	@rm -rf $(NAME)
+	@rm -rf $(BUILD_DIR)/$(NAME)
 	@$(MAKE) -C $(LIBS_DIR) fclean
 	@printf "[`tput setaf 3`make`tput sgr0`] fclean done\n"
 

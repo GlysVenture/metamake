@@ -10,7 +10,7 @@ endif
 
 LIBS = $(patsubst %/,lib%.a,$(DIRS))
 PATHS = $(join $(DIRS),$(LIBS))
-INCS = $(addsuffix includes,$(DIRS))
+INCS = $(addsuffix include,$(DIRS))
 
 libs:
 	@for dir in $(DIRS:%/=%) ; do \

@@ -21,7 +21,7 @@ all:	$(TEST_BINS)
 		printf "[`tput setaf 1`test`tput sgr0`] running $$test\n" ; \
 		./$$test; \
 	done
-	#@$(MAKE) clean
+	@$(MAKE) clean
 
 $(BIN_DIR)/%: ./%.c
 	@mkdir -p $(dir $@)
