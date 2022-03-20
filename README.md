@@ -64,6 +64,16 @@ An example file with Test is present, but you should check out the [criterion re
 
 No support for C++
 
-Libs implementation mainly untested
+Libs implementation might be untested
 
 Only works with static libs (.a archives)
+
+## Ressources
+
+[Criterion Youtube Tutorial](https://youtu.be/JarMkGWTF8Y)
+
+[Criterion documentation](https://criterion.readthedocs.io/en/master/)
+
+## Credits
+
+[Criterion](https://github.com/Snaipe/Criterion)
