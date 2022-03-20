@@ -1,8 +1,10 @@
 #!/bin/bash
 
 if [ $1 = --update ]; then
-	git -C $HOME/.metamake pull
-	echo "metamake successfully updated"
+	if [ git -C $HOME/.metamake pull > /dev/null ] ; then
+		echo "error: failed to update metamake"
+	else
+		echo "metamake successfully updated"
 	exit
 fi
 
