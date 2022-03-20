@@ -1,10 +1,10 @@
 #!/bin/bash
 
 if [ -d $HOME/.metamake ]; then
-	cp -r . $HOME/.metamake
-else
-	echo "error: $$HOME/.metamake already exists. update metamake with --update"
+	echo 'error: $HOME/.metamake already exists. update metamake with --update'
 	exit
+else
+	cp -r . $HOME/.metamake
 fi
 
 if [ -d $HOME/.local/bin ]; then
