@@ -8,9 +8,9 @@ fi
 if [ $1 = --update ] ; then
 	git -C $HOME/.metamake restore $HOME/.metamake > /dev/null
 	if git -C $HOME/.metamake pull > /dev/null ; then
-		echo "metamake successfully updated"
+		echo "metamake is up to date"
 	else
-		echo "error: failed to update metamake"
+		echo "sucessfully updated metamake"
 	fi
 	exit
 fi
