@@ -1,10 +1,7 @@
 #!/bin/bash
 
 mkdir "$HOME/.metamake"
-cp metamake.sh $HOME/.metamake/.
-cp metamake.py $HOME/.metamake/.
-cp -r templates $HOME/.metamake/.
-cp -r criterion* $HOME/.metamake/.
+cp -r . $HOME/.metamake
 
 if [ -d $HOME/.local/bin ]; then
 	ln -s $HOME/.metamake/metamake.sh $HOME/.local/bin/metamake
