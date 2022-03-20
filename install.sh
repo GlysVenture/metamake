@@ -1,7 +1,11 @@
 #!/bin/bash
 
-mkdir "$HOME/.metamake"
-cp -r . $HOME/.metamake
+if [ -d $HOME/.metamake ]; then
+	cp -r . $HOME/.metamake
+else
+	echo "error: $$HOME/.metamake already exists. update metamake with --update"
+	exit
+fi
 
 if [ -d $HOME/.local/bin ]; then
 	ln -s $HOME/.metamake/metamake.sh $HOME/.local/bin/metamake

@@ -5,5 +5,5 @@ if [ -f $HOME/.local/bin/metamake ] ; then
 elif [ -f usr/bin/metamake ] ; then
 	rm usr/bin/metamake
 fi
-rm -r "$HOME/.metamake"
+rm -rf "$HOME/.metamake"
 echo "metamake successfully uninstalled!"
