@@ -28,10 +28,6 @@ def main():
     if len(sys.argv) != 2:
         print("error: invalid arguments, please input binary name")
         sys.exit()
-
-    if len(os.listdir(".")) != 0:
-        print("error: current directory is not empty")
-        sys.exit()
         
     bin_name = sys.argv[1]
 
