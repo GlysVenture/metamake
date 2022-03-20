@@ -5,6 +5,7 @@ A project setupper for C/C++ projects using make and criterion.
 ## Installation
 
 Clone for first installation. You can delete the directory afterwards.
+
     ```bash
     $ git clone https://github.com/GlysVenture/metamake
     $ cd metamake
@@ -12,10 +13,13 @@ Clone for first installation. You can delete the directory afterwards.
     [optional]
     $ rm -rf ../metamake
     ```
+    
 To update simply do
+
     ```bash
     $ metamake --update
     ```
+    
 ## Usage
 
 go to or create a new directory for your project and then use metamake
