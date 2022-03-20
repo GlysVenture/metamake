@@ -31,7 +31,7 @@ $(BUILD_DIR)/%.c.o : %.c
 $(NAME):	library
 $(NAME):    $(OBJS) $(LIB_FILES)
 	@echo Linking $@
-	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(BIN_DIR)/$(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L$(LIBS_DIR)/,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(BIN_DIR)/$(NAME)
 
 release: CFLAGS += -03 -march=native
 release: fclean
