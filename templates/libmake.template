@@ -17,7 +17,7 @@ libs:
 		printf "[`tput setaf 6`$$dir`tput sgr0`] lib checking...\n"; \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
-			$(MAKE) -e CFLAGS="$(CFLAGS)" -C $$dir; \
+			$(MAKE) -e CFLAGS="$(CFLAGS)" -C $$dir > /dev/null; \
 		fi \
 	done
 
@@ -37,7 +37,7 @@ clean:
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
 			printf "[`tput setaf 6`$$dir`tput sgr0`] cleaning lib\n"; \
-			$(MAKE) -C $$dir clean; \
+			$(MAKE) -C $$dir clean > /dev/null; \
 		fi \
 	done
 
@@ -46,7 +46,7 @@ fclean:
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
 			printf "[`tput setaf 6`$$dir`tput sgr0`] full cleaning lib\n"; \
-			$(MAKE) -C $$dir fclean; \
+			$(MAKE) -C $$dir fclean > /dev/null; \
 		fi \
 	done
 
