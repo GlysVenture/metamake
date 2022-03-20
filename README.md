@@ -28,6 +28,20 @@ go to or create a new directory for your project and then use metamake
     $ metamake <binary name>
 
 ## Project Setup Overview
+    
+    ProjectDirectory
+    ├── Makefile
+    ├── bin
+    ├── libs
+    │   ├── Makefile
+    │   └── some_library    
+    ├── src
+    │   └── main.c
+    └── tests
+        ├── Makefile
+        ├── criterion-v2.3.2
+        └── tests.c
+
 
 Makefile has basic **$(NAME)**, **all**, **clean**, **fclean** and **re** rules
 
