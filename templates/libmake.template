@@ -14,7 +14,7 @@ INCS = $(addsuffix include,$(DIRS))
 
 libs:
 	@for dir in $(DIRS:%/=%) ; do \
-		printf "[`tput setaf 6`$$dir`tput sgr0`] lib checking...\n"; \
+		printf "[`tput setaf 6`libs`tput sgr0`] $$dir checking...\n"; \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
 			$(MAKE) -e CFLAGS="$(CFLAGS)" -C $$dir > /dev/null; \
@@ -36,7 +36,7 @@ clean:
 	@for dir in $(DIRS:%/=%) ; do \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
-			printf "[`tput setaf 6`$$dir`tput sgr0`] cleaning lib\n"; \
+			printf "[`tput setaf 6`libs`tput sgr0`] cleaning $$dir\n"; \
 			$(MAKE) -C $$dir clean > /dev/null; \
 		fi \
 	done
@@ -45,7 +45,7 @@ fclean:
 	@for dir in $(DIRS:%/=%) ; do \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
-			printf "[`tput setaf 6`$$dir`tput sgr0`] full cleaning lib\n"; \
+			printf "[`tput setaf 6`libs`tput sgr0`] full cleaning $$dir\n"; \
 			$(MAKE) -C $$dir fclean > /dev/null; \
 		fi \
 	done

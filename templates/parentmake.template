@@ -12,7 +12,7 @@ BIN_DIR ?= ./bin
 INC_DIR := ./include
 BUILD_DIR ?= ./build
 
-NAME = $(BIN_DIR)/[name]
+NAME = [name]
 
 SRCS = $(shell find $(SRC_DIR) -name *.c)
 OBJS = $(SRCS:%=$(BUILD_DIR)/%.o)
@@ -29,9 +29,14 @@ $(BUILD_DIR)/%.c.o : %.c
 	@$(CC) -c $(CFLAGS) $(addprefix -I,$(LIBS_INC)) -I$(INC_DIR) $< -o $@
 
 $(NAME):	library
-$(NAME):	$(OBJS) $(LIB_FILES)
+	@printf "[`tput setaf 3`make`tput sgr0`] checking update status...\n"
+	@if $(MAKE) $(BIN_DIR)/$(NAME) | grep "is up to date" > /dev/null; then \
+		printf "[`tput setaf 3`make`tput sgr0`] $@ is up to date\n"; \
+	fi
+
+$(BIN_DIR)/$(NAME):	$(OBJS) $(LIB_FILES)
 	@printf "[`tput setaf 3`make`tput sgr0`] linking $@\n"
-	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L$(LIBS_DIR)/,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L$(LIBS_DIR)/,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(BIN_DIR)/$(NAME)
 
 release: CFLAGS += -03 -march=native
 release: fclean
@@ -56,7 +61,7 @@ clean:
 
 fclean:
 	@rm -rf $(BUILD_DIR)
-	@rm -rf $(NAME)
+	@rm -rf $(BIN_DIR)/$(NAME)
 	@$(MAKE) -C $(LIBS_DIR) fclean
 	@printf "[`tput setaf 3`make`tput sgr0`] fclean done\n"
 
