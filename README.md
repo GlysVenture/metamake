@@ -44,6 +44,4 @@ No support for C++
 
 Libs implementation mainly untested
 
-Doesn't check if target dir is empty
-
 Only works with static libs (.a archives)
