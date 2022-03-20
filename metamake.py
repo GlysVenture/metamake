@@ -1,5 +1,6 @@
 #!/bin/python3
 
+#todo cpp
 import os
 import shutil
 import sys
