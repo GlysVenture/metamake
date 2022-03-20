@@ -42,7 +42,8 @@ def main():
 
     create_make(bin_name, "libmake", "./libs")
     create_make(bin_name, "testmake", "./tests")
-    shutil.copytree(os.path.join(os.path.dirname(__file__), "criterion-v2.3.2"), "./tests/criterion-v2.3.2")
+    shutil.copytree(os.path.join(os.path.dirname(__file__), "criterion_linux-v2.3.2"), "./tests/criterion_linux-v2.3.2")
+    shutil.copytree(os.path.join(os.path.dirname(__file__), "criterion_mac-v2.3.2"), "./tests/criterion_mac-v2.3.2")
     create_file(bin_name, "main.c", "./src")
     create_file(bin_name, "tests.c", "./tests")
 

@@ -7,5 +7,5 @@ Test(example_tests, success) {
 }
 
 Test(example_tests, fail) {
-	cr_expect(true, "this test should fail");
+	cr_expect(false, "this test should fail");
 }
