@@ -5,6 +5,7 @@ if [ $1 = --update ]; then
 		echo "error: failed to update metamake"
 	else
 		echo "metamake successfully updated"
+	fi
 	exit
 fi
 
