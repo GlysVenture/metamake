@@ -28,14 +28,14 @@ $(BUILD_DIR)/%.c.o : %.c
 	@mkdir -p $(dir $@)
 	@$(CC) -c $(CFLAGS) $(addprefix -I,$(LIBS_INC)) -I$(INC_DIR) $< -o $@
 
-$(NAME):	library
-$(NAME):    $(OBJS) $(LIB_FILES)
+$(NAME):	library	$(OBJS) $(LIB_FILES)
 	@echo Linking $@
 	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L$(LIBS_DIR)/,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(BIN_DIR)/$(NAME)
 
-release: CFLAGS += -03 -march=native
-release: fclean
-release: all
+release:
+	CFLAGS += -03 -march=native
+	$(MAKE) fclean
+	$(MAKE) all
 
 tests:
 	@printf "[`tput setaf 3`make`tput sgr0`] starting tests...\n"
@@ -61,6 +61,6 @@ fclean:
 	@printf "[`tput setaf 3`make`tput sgr0`] fclean done\n"
 
 re: fclean
-re:	all
+	$(MAKE) all
 
 .PHONY: all fclean clean library re release tests
