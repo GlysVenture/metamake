@@ -1,0 +1,9 @@
+// main.c template file
+
+#include <stdio.h>
+
+int main()
+{
+	printf("hello world from metamake [substr] project!\n");
+	return 0;
+}

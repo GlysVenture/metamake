@@ -1,4 +1,5 @@
 CFLAGS ?= -Wall -Wextra -Werror
+CC = gcc
 MAKEFLAGS += --no-print-directory
 
 ifeq ($(strip $(shell find ./* -maxdepth 0 -type d | wc -l)), 0)
@@ -9,19 +10,19 @@ endif
 
 LIBS = $(patsubst %/,lib%.a,$(DIRS))
 PATHS = $(join $(DIRS),$(LIBS))
-INCS = $(addsuffix includes,$(addprefix -I,$(DIRS)))
+INCS = $(addsuffix includes,$(DIRS))
 
 libs:
 	@for dir in $(DIRS:%/=%) ; do \
-		printf "[`tput setaf 4`$$dir`tput sgr0`] lib checking...\n"; \
+		printf "[`tput setaf 6`$$dir`tput sgr0`] lib checking...\n"; \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
 			$(MAKE) -e CFLAGS="$(CFLAGS)" -C $$dir; \
 		fi \
 	done
 
-lib_l:
-	@echo -n $(addprefix -L,$(DIRS)) $(addprefix -l,$(DIRS:%/=%))
+lib_names:
+	@echo -n $(DIRS:%/=%)
 
 lib_path:
 	@echo -n $(PATHS)
@@ -35,7 +36,7 @@ clean:
 	@for dir in $(DIRS:%/=%) ; do \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
-			printf "[`tput setaf 4`$$dir`tput sgr0`] cleaning lib\n"; \
+			printf "[`tput setaf 6`$$dir`tput sgr0`] cleaning lib\n"; \
 			$(MAKE) -C $$dir clean; \
 		fi \
 	done
@@ -44,9 +45,9 @@ fclean:
 	@for dir in $(DIRS:%/=%) ; do \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
-			printf "[`tput setaf 4`$$dir`tput sgr0`] full cleaning lib\n"; \
+			printf "[`tput setaf 6`$$dir`tput sgr0`] full cleaning lib\n"; \
 			$(MAKE) -C $$dir fclean; \
 		fi \
 	done
 
-.PHONY: libs lib_l lib_inc lib_path all clean fclean
+.PHONY: libs lib_names lib_inc lib_path all clean fclean

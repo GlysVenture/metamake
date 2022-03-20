@@ -1,0 +1,66 @@
+CFLAGS := -Wall -Wextra -Werror -g3
+CC = gcc
+MAKEFLAGS += --no-print-directory
+
+NAME = [name]
+
+#UNAME = $(shell uname -s)
+
+#directories
+SRC_DIR ?= ./src
+TESTS_DIR ?= ./tests
+LIBS_DIR ?= ./libs
+BIN_DIR ?= ./bin
+INC_DIR := ./includes
+BUILD_DIR ?= ./build
+
+SRCS = $(shell find $(SRC_DIR) -name *.c)
+OBJS = $(SRCS:%=$(BUILD_DIR)/%.o)
+
+LIBS = $(shell $(MAKE) -C $(LIBS_DIR) lib_names)
+LIB_FILES = $(addprefix $(LIBS_DIR)/,$(shell $(MAKE) -C $(LIBS_DIR) lib_path))
+LIBS_INC = $(addprefix $(LIBS_DIR)/,$(shell $(MAKE) -C $(LIBS_DIR) lib_inc))
+
+TEST_FLAGS = $(addprefix -I../,$(LIBS_INC)) -I../$(INC_DIR) $(addprefix -L../,$(LIBS)) $(addprefix -l,$(LIBS))
+
+$(BUILD_DIR)/%.c.o : %.c
+	@printf "[`tput setaf 3`make`tput sgr0`] compiling $@...\n"
+	@mkdir -p $(dir $@)
+	@$(CC) -c $(CFLAGS) $(addprefix -I,$(LIBS_INC)) -I$(INC_DIR) $< -o $@
+
+$(NAME):	library
+$(NAME):    $(OBJS) $(LIB_FILES)
+	@echo Linking $@
+	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(NAME)
+
+release: CFLAGS += -03 -march=native
+release: fclean
+release: all
+
+tests:
+	@printf "[`tput setaf 3`make`tput sgr0`] starting tests...\n"
+	@$(MAKE) -e TEST_FLAGS="$(TEST_FLAGS)" -C $(TESTS_DIR)
+
+$(LIB_FILES): library
+
+library:
+	@$(MAKE) -e CFLAGS="$(CFLAGS)" -C $(LIBS_DIR)
+
+all:	
+	@$(MAKE) $(NAME)
+
+clean:
+	@rm -rf $(BUILD_DIR)
+	@$(MAKE) -C $(LIBS_DIR) fclean
+	@printf "[`tput setaf 3`make`tput sgr0`] clean done\n"
+
+fclean:
+	@rm -rf $(BUILD_DIR)
+	@rm -rf $(NAME)
+	@$(MAKE) -C $(LIBS_DIR) fclean
+	@printf "[`tput setaf 3`make`tput sgr0`] fclean done\n"
+
+re: fclean
+re:	all
+
+.PHONY: all fclean clean library re release tests
