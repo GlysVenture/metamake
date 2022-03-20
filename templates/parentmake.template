@@ -30,8 +30,8 @@ $(BUILD_DIR)/%.c.o : %.c
 
 $(NAME):	library
 	@printf "[`tput setaf 3`make`tput sgr0`] checking update status...\n"
-	@if $(MAKE) $(BIN_DIR)/$(NAME) | grep "is up to date" > /dev/null; then \
-		printf "[`tput setaf 3`make`tput sgr0`] $@ is up to date\n"; \
+	@if ! $(MAKE) $(BIN_DIR)/$(NAME) | grep -v "is up to date" ; then \
+		printf "[`tput setaf 3`make`tput sgr0`] $@ is up to date ✅\n"; \
 	fi
 
 $(BIN_DIR)/$(NAME):	$(OBJS) $(LIB_FILES)
