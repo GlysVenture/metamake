@@ -1,6 +1,6 @@
 # metamake
 
-A project setup for C/C++ projects using make and criterion.
+A project setup tool for C/C++ projects using make and criterion.
 
 ## Installation
 
