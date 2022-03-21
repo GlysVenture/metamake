@@ -13,17 +13,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: setup
-    - run: mkdir -p $HOME/.local/bin
-    - run: export PATH="$PATH:$HOME/.local/bin"
-    - run: make install
-    - name: create
-    - run: metamake dir
+    - name: create .local/bin
+      run: mkdir -p $HOME/.local/bin
+    - name: change PATH var
+      run: export PATH="$PATH:$HOME/.local/bin"
+    - name: install metamake
+      run: make install
+    - name: create dir
+      run: metamake dir
     - run: cd dir
-    - name: testing makefiles
-    - run: make
-    - run: make tests
-    - run: make fclean
-    - run: make tests
-    - run: make run
-    - run: make all
+    - name: testing $>make
+      run: make
+    - name: testing $>make tests
+      run: make tests
+    - name: testing $>make fclean
+      run: make fclean
+    - name: testing $>make run
+      run: make run
+    - name: testing $>make all
+      run: make all
