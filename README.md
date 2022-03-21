@@ -4,7 +4,7 @@ A project setup tool for C/C++ projects using make and criterion.
 
 ![](https://img.shields.io/badge/platform-linux%20%7C%20macOs-lightgrey) ![](https://img.shields.io/badge/python-v3.8-blue)
 
-![](https://img.shields.io/github/stars/GlysVenture/metamake?style=social) ![](https://img.shields.io/github/followers/GlysVenture?style=social)
+![](https://img.shields.io/github/stars/GlysVenture/metamake?style=social)
 
 ## Installation
 
