@@ -67,6 +67,10 @@ An example file with Test is present, but you should check out the [criterion re
 
 **run** rule runs the binary. **all** compiles, tests and then runs.
 
+## Philosophy
+
+This is a one and done kind of utility. It is not a build tool. It just sets up Makefiles and directories, maintenance and changes are up to you.
+
 ## Status
 
 Libs implementation might be untested
