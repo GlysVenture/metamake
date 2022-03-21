@@ -12,11 +12,16 @@ class Options():
     directory = None
         
 def help():
-    print("usage: metamake [options] <empty_target_dir>")
+    print("usages:")
+    print("metamake [options] <empty_target_dir>")
     print(" options:")
     print("  -n --name <executable_name>")
     print("  -c --compiler <compiler>")
     print("  -cpp")
+    print("metamake [options]")
+    print(" options:")
+    print("  --help")
+    print("  --update")
 
 def parse_args():
     options = Options()
