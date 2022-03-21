@@ -1,6 +1,6 @@
 # metamake
 
-A project setupper for C/C++ projects using make and criterion.
+A project setup tool for C/C++ projects using make and criterion.
 
 ## Installation
 
@@ -67,9 +67,11 @@ An example file with Test is present, but you should check out the [criterion re
 
 **run** rule runs the binary. **all** compiles, tests and then runs.
 
-## Status
+## Philosophy
 
-/!\ first release, unstable /!\
+This is a one and done kind of utility. It is not a build tool. It just sets up Makefiles and directories, maintenance and changes are up to you.
+
+## Status
 
 Libs implementation might be untested
 

@@ -5,12 +5,14 @@ import os
 import shutil
 import sys
 
+#metamake default context
 class Options():
     bin_name = "a.out"
     lang = "c"
     compiler = "gcc"
     directory = None
-        
+
+#prints --help message
 def help():
     print("usages:")
     print("metamake [options] <empty_target_dir>")
@@ -23,6 +25,7 @@ def help():
     print("  --help")
     print("  --update")
 
+#parses input arguments into options
 def parse_args():
     options = Options()
 
@@ -59,6 +62,7 @@ def parse_args():
         sys.exit()
     return options
 
+#replaces [#<something>#] symbols in file by corresponding options fields
 def parse_file(filepath, options):
     source = open(filepath, "r")
     contents = source.read()
@@ -72,20 +76,13 @@ def parse_file(filepath, options):
     not_source.write(contents)
     not_source.close()
 
-def main():
-
-    options = parse_args()
-
-    print("creating project in: " + options.directory)
-    print("named: " + options.bin_name)
-    print("language: " + options.lang)
-    print("using compiler: " + options.compiler)
-
-    if os.path.isdir(options.directory):
-        print("error: " + options.directory + " already exists")
-        sys.exit()
-
+#creates directory copying the template and parsing files using the options provided
+def dir_from_options(options):
     shutil.copytree(os.path.join(os.path.dirname(__file__), "../ressources/project_template"), options.directory)
+
+    os.mkdir(options.directory + "/src")
+    os.mkdir(options.directory + "/bin")
+    os.mkdir(options.directory + "/include")
 
     if options.lang == "c":
         shutil.copy(os.path.join(os.path.dirname(__file__), "../ressources/templates/main.c.template"), options.directory + "/src/main.c")
@@ -98,6 +95,17 @@ def main():
         if not ("criterion" in path) :
             for name in files:
                 parse_file(os.path.join(path, name), options)
+
+def main():
+
+    options = parse_args()
+
+    print("creating project in: " + options.directory)
+    print("named: " + options.bin_name)
+    print("language: " + options.lang)
+    print("using compiler: " + options.compiler)
+
+    dir_from_options(options)
 
     print("Creation sucessfull!")
 

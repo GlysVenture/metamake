@@ -1,0 +1,34 @@
+name: metamake CI
+
+on:
+  push:
+    branches: [ master, dev ]
+  pull_request:
+    branches: [ master, dev ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: create .local/bin
+      run: mkdir -p $HOME/.local/bin
+    - name: change PATH var
+      run: export PATH="$PATH:$HOME/.local/bin"
+    - name: install metamake
+      run: make install
+    - name: create dir
+      run: metamake dir
+    - run: cd dir
+    - name: testing $>make
+      run: make
+    - name: testing $>make tests
+      run: make tests
+    - name: testing $>make fclean
+      run: make fclean
+    - name: testing $>make run
+      run: make run
+    - name: testing $>make all
+      run: make all
