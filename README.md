@@ -14,7 +14,7 @@ Clone for first installation. You can delete the directory afterwards.
     $ rm -rf ../metamake
     
 if this doesn't work it means you probably don't have a $HOME/.local/bin directory and you don't have access to /usr/bin.
-Just create $HOME/.local/bin and rerun install.sh
+Just create $HOME/.local/bin and rerun make install
     
 To update simply do
 
