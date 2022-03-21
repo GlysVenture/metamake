@@ -13,35 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: insatll metamake
-      run: |
-        mkdir -p $HOME/.local/bin
-        export PATH="$PATH:$HOME/.local/bin"
-        make install
-    - name: create dir
-      run: |
-        metamake dir
-    - name: testing $>make
-      run: |
-        cd dir
-        make
-    - name: testing $>make clean
-      run: |
-        cd dir
-        make clean
-    - name: testing $>make tests
-      run: |
-        cd dir
-        make tests
-    - name: testing $>make fclean
-      run: |
-        cd dir
-        make fclean
-    - name: testing $>make run
-      run: |
-        cd dir
-        make run
-    - name: testing $>make all
-      run: |
-        cd dir
-        make all
+    - name: setup
+      run: make setup
+    - name: tests
+      run: make tests
