@@ -39,6 +39,7 @@ metamake [options]
     ProjectDirectory
     ├── Makefile
     ├── bin
+    ├── include
     ├── libs
     │   ├── Makefile
     │   └── some_library    
