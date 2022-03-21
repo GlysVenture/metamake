@@ -2,6 +2,7 @@
 
 A project setup tool for C/C++ projects using make and criterion.
 
+![](https://img.shields.io/badge/platform-linux%20%7C%20macOs-lightgrey) ![](https://img.shields.io/badge/python-v3.8-blue)
 ## Installation
 
 Clone for first installation. You can delete the directory afterwards.
