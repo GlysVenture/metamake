@@ -59,9 +59,9 @@ def parse_file(filepath, options):
     contents = source.read()
     source.close()
 
-    contents = contents.replace("[name]", options.bin_name)
-    contents = contents.replace("[compiler]", options.compiler)
-    contents = contents.replace("[lang]", options.lang)
+    contents = contents.replace("[#name#]", options.bin_name)
+    contents = contents.replace("[#compiler#]", options.compiler)
+    contents = contents.replace("[#lang#]", options.lang)
 
     not_source = open(filepath, "w")
     not_source.write(contents)

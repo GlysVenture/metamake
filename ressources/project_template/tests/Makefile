@@ -1,5 +1,5 @@
 CFLAGS = -Wall -Wextra -Werror
-CC = gcc
+CC = [#compiler#]
 
 SRC_DIR ?= ../src
 OBJ_DIR ?= ../build
@@ -8,12 +8,12 @@ UNAME = $(shell uname -s)
 
 TEST_FLAGS ?=
 
-SRCS = $(shell find $(SRC_DIR) -name *.c)
+SRCS = $(shell find $(SRC_DIR) -name *.[#lang#])
 OBJS = $(SRCS:%=$(OBJ_DIR)/%.o)
 
-TESTS = $(shell find . -name *.c)
+TESTS = $(shell find . -name *.[#lang#])
 BIN_DIR = ./bin
-TEST_BINS = $(patsubst ./%.c, $(BIN_DIR)/%, $(TESTS))
+TEST_BINS = $(patsubst ./%.[#lang#], $(BIN_DIR)/%, $(TESTS))
 ifeq ($(UNAME), Linux)
 	CRITERION_DIR = $(dir $(shell find criterion* -type f -name "libcriterion.so"))
 else
@@ -30,7 +30,7 @@ all:	$(TEST_BINS)
 	done
 	@$(MAKE) clean
 
-$(BIN_DIR)/%: ./%.c
+$(BIN_DIR)/%: ./%.[#lang#]
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) $< $(OBJS) -L$(CRITERION_DIR) -lcriterion -o $@ -I$(CRITERION_INC) $(TEST_FLAGS)
 

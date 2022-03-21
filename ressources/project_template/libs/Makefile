@@ -1,5 +1,5 @@
 CFLAGS ?= -Wall -Wextra -Werror
-CC = gcc
+CC = [#compiler#]
 MAKEFLAGS += --no-print-directory
 
 ifeq ($(strip $(shell find ./* -maxdepth 0 -type d | wc -l)), 0)

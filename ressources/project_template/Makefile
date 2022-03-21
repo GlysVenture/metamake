@@ -1,5 +1,5 @@
 CFLAGS := -Wall -Wextra -Werror -g3
-CC = gcc
+CC = [#compiler#]
 MAKEFLAGS += --no-print-directory
 
 #UNAME = $(shell uname -s)
@@ -12,9 +12,9 @@ BIN_DIR ?= ./bin
 INC_DIR := ./include
 BUILD_DIR ?= ./build
 
-NAME = [name]
+NAME = [#name#]
 
-SRCS = $(shell find $(SRC_DIR) -name *.c)
+SRCS = $(shell find $(SRC_DIR) -name *.[#lang#])
 OBJS = $(SRCS:%=$(BUILD_DIR)/%.o)
 
 LIBS = $(shell $(MAKE) --no-print-directory -C $(LIBS_DIR) lib_names)
@@ -23,7 +23,7 @@ LIBS_INC = $(addprefix $(LIBS_DIR)/,$(shell $(MAKE) --no-print-directory -C $(LI
 
 TEST_FLAGS = $(addprefix -I../,$(LIBS_INC)) -I../$(INC_DIR) $(addprefix -L../,$(LIBS)) $(addprefix -l,$(LIBS))
 
-$(BUILD_DIR)/%.c.o : %.c
+$(BUILD_DIR)/%.[#lang#].o : %.[#lang#]
 	@printf "[`tput setaf 3`make`tput sgr0`] compiling $@...\n"
 	@mkdir -p $(dir $@)
 	@$(CC) -c $(CFLAGS) $(addprefix -I,$(LIBS_INC)) -I$(INC_DIR) $< -o $@
@@ -48,11 +48,19 @@ tests:
 
 $(LIB_FILES): library
 
+run:
+	@$(MAKE) $(BIN_DIR)/$(NAME) | grep -v "is up to date" || true
+	@printf "[`tput setaf 3`make`tput sgr0`] running $(NAME)\n"
+	@$(BIN_DIR)/$(NAME)
+
+
 library:
 	@$(MAKE) -e CFLAGS="$(CFLAGS)" -C $(LIBS_DIR)
 
 all:	
 	@$(MAKE) $(NAME)
+	@$(MAKE) tests
+	@$(MAKE) run
 
 clean:
 	@rm -rf $(BUILD_DIR)
@@ -68,4 +76,4 @@ fclean:
 re: fclean
 re:	all
 
-.PHONY: all fclean clean library re release tests
+.PHONY: all fclean clean library re release tests run
