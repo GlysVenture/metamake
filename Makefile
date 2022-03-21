@@ -12,6 +12,7 @@ update:
 setup:
 	mkdir -p $$HOME/.local/bin
 	export PATH="$$PATH:$$HOME/.local/bin"
+	$(MAKE) install
 	metamake dir
 
 tests:
