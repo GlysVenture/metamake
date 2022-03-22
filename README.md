@@ -82,7 +82,7 @@ This is a one and done kind of utility. It is not a build tool. It just sets up 
 
  - Only works with static libs (.a archives) -> add better lib struct for all kinds (.a, .so, .dylib, from source or not)
 
- - Includes are in ./incldue -> Includes in src or outside?
+ - Includes are in ./include -> Includes in src or outside?
 
  - Windows / wsl implementation
 
