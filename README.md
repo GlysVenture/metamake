@@ -76,11 +76,21 @@ An example file with Test is present, but you should check out the [criterion re
 
 This is a one and done kind of utility. It is not a build tool. It just sets up Makefiles and directories, maintenance and changes are up to you.
 
-## Status
+## Status / Todo
 
-Libs implementation might be untested
+ - Libs implementation might be untested -> to test
 
-Only works with static libs (.a archives)
+ - Only works with static libs (.a archives) -> add better lib struct for all kinds (.a, .so, .dylib, from source or not)
+
+ - Includes are in ./incldue -> Includes in src or outside?
+
+ - Windows / wsl implementation
+
+ - in make all remove run
+
+ - multiple binaries?
+
+ - only binary project avilable now -> lib project structure?
 
 ## Ressources
 
