@@ -84,13 +84,11 @@ This is a one and done kind of utility. It is not a build tool. It just sets up 
 
  - Includes are in ./include -> Includes in src or outside?
 
- - Windows / wsl implementation
-
- - in make all remove run
+ - Windows implementation??? (use wsl people!)
 
  - multiple binaries?
 
- - only binary project avilable now -> lib project structure?
+ - only binary project available now -> lib project structure?
 
 ## Ressources
 
