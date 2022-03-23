@@ -1,6 +1,9 @@
 CFLAGS = -Wall -Wextra -Werror
 CC = [#compiler#]
 
+_COLOR := \033[1;31m
+_END := \033[0m
+
 SRC_DIR ?= ../src
 OBJ_DIR ?= ../build
 
@@ -25,7 +28,7 @@ all:	$(TEST_BINS)
 	@for test in $(TEST_BINS); do \
 		export "DYLD_LIBRARY_PATH=$(shell pwd)/$(CRITERION_DIR)" ; \
 		export "LD_LIBRARY_PATH=$(shell pwd)/$(CRITERION_DIR)" ; \
-		printf "[`tput setaf 1`test`tput sgr0`] running $$test\n" ; \
+		printf "[$(_COLOR)test$(_END)] running $$test\n" ; \
 		./$$test || true; \
 	done
 	@$(MAKE) clean
@@ -36,6 +39,6 @@ $(BIN_DIR)/%: ./%.[#lang#]
 
 clean:
 	@rm -rf $(BIN_DIR)
-	@printf "[`tput setaf 1`test`tput sgr0`] clean done\n"
+	@printf "[$(_COLOR)test$(_END)] clean done\n"
 
 .PHONY: all clean
