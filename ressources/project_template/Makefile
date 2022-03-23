@@ -6,7 +6,7 @@ MAKEFLAGS += --no-print-directory
 
 #directories
 #mkdir -p is here for potentially empty directories that could be lost upon git push to remote
-SRC_DIR := $(shell mkdir -p ./bin && printf "./bin")
+SRC_DIR := $(shell mkdir -p ./src && printf "./src")
 TESTS_DIR := ./tests
 LIBS_DIR := ./libs
 BIN_DIR := $(shell mkdir -p ./bin && printf "./bin")
