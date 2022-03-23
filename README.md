@@ -27,7 +27,7 @@ To update simply do
 
 ```
 usages:
-metamake [options] <empty_target_dir>
+metamake [options] <new_project_dir>
  options:
   -n --name <executable_name>
   -c --compiler <compiler>
