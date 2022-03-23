@@ -14,6 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: setup
-      run: make setup
+      run: make --no-print-directory setup
     - name: tests
-      run: make tests
+      run: make --no-print-directory tests

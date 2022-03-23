@@ -2,6 +2,9 @@ CFLAGS ?= -Wall -Wextra -Werror
 CC = [#compiler#]
 MAKEFLAGS += --no-print-directory
 
+_COLOR := \033[1;36m
+_END := \033[0m
+
 ifeq ($(strip $(shell find ./* -maxdepth 0 -type d | wc -l)), 0)
 	DIRS := 
 else
@@ -14,7 +17,7 @@ INCS = $(addsuffix include,$(DIRS))
 
 libs:
 	@for dir in $(DIRS:%/=%) ; do \
-		printf "[`tput setaf 6`libs`tput sgr0`] $$dir checking...\n"; \
+		printf "[$(_COLOR)libs$(_END)] $$dir checking...\n"; \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
 			$(MAKE) -e CFLAGS="$(CFLAGS)" -C $$dir > /dev/null; \
@@ -36,7 +39,7 @@ clean:
 	@for dir in $(DIRS:%/=%) ; do \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
-			printf "[`tput setaf 6`libs`tput sgr0`] cleaning $$dir\n"; \
+			printf "[$(_COLOR)libs$(_END)] cleaning $$dir\n"; \
 			$(MAKE) -C $$dir clean > /dev/null; \
 		fi \
 	done
@@ -45,7 +48,7 @@ fclean:
 	@for dir in $(DIRS:%/=%) ; do \
 		if [ $$(find $$dir -maxdepth 1 -type f -name "Makefile" | wc -l) != 0 ] ; \
 		then \
-			printf "[`tput setaf 6`libs`tput sgr0`] full cleaning $$dir\n"; \
+			printf "[$(_COLOR)libs$(_END)] full cleaning $$dir\n"; \
 			$(MAKE) -C $$dir fclean > /dev/null; \
 		fi \
 	done

@@ -4,15 +4,19 @@ MAKEFLAGS += --no-print-directory
 
 #UNAME = $(shell uname -s)
 
+_COLOR := \033[1;33m
+_END := \033[0m
+
 #directories
-SRC_DIR ?= ./src
-TESTS_DIR ?= ./tests
-LIBS_DIR ?= ./libs
-BIN_DIR ?= ./bin
-INC_DIR := ./include
+#mkdir -p is here for potentially empty directories that could be lost upon git push to remote
+SRC_DIR := $(shell mkdir -p ./src && printf "./src")
+TESTS_DIR := ./tests
+LIBS_DIR := ./libs
+BIN_DIR := $(shell mkdir -p ./bin && printf "./bin")
+INC_DIR := $(shell mkdir -p ./include && printf "./include")
 BUILD_DIR ?= ./build
 
-NAME = [#name#]
+NAME := [#name#]
 
 SRCS = $(shell find $(SRC_DIR) -name *.[#lang#])
 OBJS = $(SRCS:%=$(BUILD_DIR)/%.o)
@@ -24,18 +28,18 @@ LIBS_INC = $(addprefix $(LIBS_DIR)/,$(shell $(MAKE) --no-print-directory -C $(LI
 TEST_FLAGS = $(addprefix -I../,$(LIBS_INC)) -I../$(INC_DIR) $(addprefix -L../,$(LIBS)) $(addprefix -l,$(LIBS))
 
 $(BUILD_DIR)/%.[#lang#].o : %.[#lang#]
-	@printf "[`tput setaf 3`make`tput sgr0`] compiling $@...\n"
+	@printf "[$(_COLOR)make$(_END)] compiling $@...\n"
 	@mkdir -p $(dir $@)
 	@$(CC) -c $(CFLAGS) $(addprefix -I,$(LIBS_INC)) -I$(INC_DIR) $< -o $@
 
-$(NAME):	library
-	@printf "[`tput setaf 3`make`tput sgr0`] checking update status...\n"
+$(NAME):
+	@printf "[$(_COLOR)make$(_END)] checking update status...\n"
 	@if ! $(MAKE) $(BIN_DIR)/$(NAME) | grep -v "is up to date" ; then \
-		printf "[`tput setaf 3`make`tput sgr0`] $@ is up to date ✅\n"; \
+		printf "[$(_COLOR)make$(_END)] $@ is up to date ✅\n"; \
 	fi
 
 $(BIN_DIR)/$(NAME):	$(OBJS) $(LIB_FILES)
-	@printf "[`tput setaf 3`make`tput sgr0`] linking $@\n"
+	@printf "[$(_COLOR)make$(_END)] linking $@\n"
 	@$(CC) $(CFLAGS) $(OBJS) $(addprefix -L$(LIBS_DIR)/,$(LIBS)) $(addprefix -l,$(LIBS)) -o $(BIN_DIR)/$(NAME)
 
 release: CFLAGS += -03 -march=native
@@ -43,14 +47,14 @@ release: fclean
 release: all
 
 tests:
-	@printf "[`tput setaf 3`make`tput sgr0`] starting tests...\n"
+	@printf "[$(_COLOR)make$(_END)] starting tests...\n"
 	@$(MAKE) -e TEST_FLAGS="$(TEST_FLAGS)" -C $(TESTS_DIR)
 
 $(LIB_FILES): library
 
 run:
 	@$(MAKE) $(BIN_DIR)/$(NAME) | grep -v "is up to date" || true
-	@printf "[`tput setaf 3`make`tput sgr0`] running $(NAME)\n"
+	@printf "[$(_COLOR)make$(_END)] running $(NAME)\n"
 	@$(BIN_DIR)/$(NAME)
 
 
@@ -58,20 +62,18 @@ library:
 	@$(MAKE) -e CFLAGS="$(CFLAGS)" -C $(LIBS_DIR)
 
 all:	
-	@$(MAKE) $(NAME)
-	@$(MAKE) tests
-	@$(MAKE) run
+	@$(MAKE) $(NAME) && $(MAKE) tests
 
 clean:
 	@rm -rf $(BUILD_DIR)
 	@$(MAKE) -C $(LIBS_DIR) fclean
-	@printf "[`tput setaf 3`make`tput sgr0`] clean done\n"
+	@printf "[$(_COLOR)make$(_END)] clean done\n"
 
 fclean:
 	@rm -rf $(BUILD_DIR)
 	@rm -rf $(BIN_DIR)/$(NAME)
 	@$(MAKE) -C $(LIBS_DIR) fclean
-	@printf "[`tput setaf 3`make`tput sgr0`] fclean done\n"
+	@printf "[$(_COLOR)make$(_END)] fclean done\n"
 
 re: fclean
 re:	all
