@@ -5,14 +5,15 @@ MAKEFLAGS += --no-print-directory
 #UNAME = $(shell uname -s)
 
 #directories
-SRC_DIR ?= ./src
-TESTS_DIR ?= ./tests
-LIBS_DIR ?= ./libs
-BIN_DIR ?= ./bin
-INC_DIR := ./include
+#mkdir -p is here for potentially empty directories that could be lost upon git push to remote
+SRC_DIR := $(shell mkdir -p ./bin && printf "./bin")
+TESTS_DIR := ./tests
+LIBS_DIR := ./libs
+BIN_DIR := $(shell mkdir -p ./bin && printf "./bin")
+INC_DIR := $(shell mkdir -p ./include && printf "./include")
 BUILD_DIR ?= ./build
 
-NAME = [#name#]
+NAME := [#name#]
 
 SRCS = $(shell find $(SRC_DIR) -name *.[#lang#])
 OBJS = $(SRCS:%=$(BUILD_DIR)/%.o)
@@ -58,9 +59,7 @@ library:
 	@$(MAKE) -e CFLAGS="$(CFLAGS)" -C $(LIBS_DIR)
 
 all:	
-	@$(MAKE) $(NAME)
-	@$(MAKE) tests
-	@$(MAKE) run
+	@$(MAKE) $(NAME) && $(MAKE) tests
 
 clean:
 	@rm -rf $(BUILD_DIR)
