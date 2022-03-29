@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -Werror -std=c++11
+CFLAGS = -Wall -Wextra -Werror [#std_cpp#]
 CC = [#compiler#]
 
 _COLOR := \033[1;31m
