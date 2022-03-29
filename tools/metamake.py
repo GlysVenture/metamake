@@ -71,6 +71,10 @@ def parse_file(filepath, options):
     contents = contents.replace("[#name#]", options.bin_name)
     contents = contents.replace("[#compiler#]", options.compiler)
     contents = contents.replace("[#lang#]", options.lang)
+    if options.lang == "cpp":
+        contents = contents.replace("[#std_cpp#]", "-std=c++11")
+    else:
+        contents = contents.replace("[#std_cpp#]", "")
 
     not_source = open(filepath, "w")
     not_source.write(contents)
